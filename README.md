@@ -1,14 +1,16 @@
 # Analysis-of-Historically-Popular-Songs
-The goal of this project is to analyze a couple of the most popular songs of each year for the last 50 years using topological data analysis (TDA) and a natural language processer (NLP). Depending on time restraints, I may use this technique to try and predict what year a random selected song came from.
+The goal of this project is to analyze a couple of the most popular songs of each year for the last 60 years using topological data analysis (TDA) and a natural language processer (NLP). Depending on time restraints, more analysis might be done using ML or analysis of word frequencies in the lyrics.
 
 **This project is for the BGSU hackathon**
 
-In more detail, the goal will be to analyze and compare the most popular songs of the past 50 years against each other. Using the the top 5 (subject to change) most popular songs of a year to be the sample for the respective year. Hopefully this project will show some interesting trends in the progression of music. Note that TDA is a newer field of data analysis and there isn't an extensive amount of public work relating to it, so the analysis of music progression with TDA may be a first! 
+In more detail, the goal will be to analyze and compare the most popular songs of the past 60 years against each other. Using the the top 5 (subject to change) most popular songs of a year to be the sample for the respective year. Hopefully this project will show some interesting trends in the progression of music.
 
 # References
+
 I will be referencing 2 main papers for this project and hopefully wont need to redesign their algorithms described in the paper in order to work for my project. That would be problematic as my understanding of abstract algebraic group theory can be described as limited at the least.
 
 # Project Layout
+
 This project will be devised into multiple parts:
 
 **1. Creating the data set**
