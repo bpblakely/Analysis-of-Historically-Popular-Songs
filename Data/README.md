@@ -5,7 +5,7 @@ The data set is available as either a json or csv file.
 
 Data set size: ( 6100 x 12 )
 
-Each row describes a song with 12 attributes.
+Each row describes a song with 12 variables.
 
 The variables in order:
 
