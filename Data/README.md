@@ -1,5 +1,5 @@
 All_songs is the data generated after ~6 hours of scraping. This data set is the top 100 songs of the year for the last 60 years. 
-The data set is available as either a json or csv file.
+The data set is available as either a json or csv file. Lyrics were generated with Genius API.
 
 **Data Description**
 
