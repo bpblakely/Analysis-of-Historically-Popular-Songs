@@ -1,17 +1,19 @@
 # Analysis-of-Historically-Popular-Songs
 The goal of this project is to analyze a couple of the most popular songs of each year for the last 60 years using topological data analysis (TDA) and a natural language processer (NLP). Depending on time restraints, more analysis might be done using ML or analysis of word frequencies in the lyrics.
 
-**This project is for the BGSU hackathon**
+**This project is for the BGSU Hackathon**
+
 
 In more detail, the goal will be to analyze and compare the most popular songs of the past 60 years against each other. Using the the top 5 (subject to change) most popular songs of a year to be the sample for the respective year. Hopefully this project will show some interesting trends in the progression of music.
+
+**Hackathon Results**
+
+
+This project won the award for best design at the 2020 BGSU Hackathon. I will upload our presentation and freeze this respitory. I'd like to thank my teammates, David Ash and Jackson Conrad, for their contributions to this project. Since this project had an unsuccessful application of topological data analysis in this project, I will clone this respiratory and continue working on it as my schedule allows it. If I get good results I will write a paper for publication, as this field still needs some development. 
 
 # References
 
 I will be referencing 2 main papers for this project and hopefully wont need to redesign their algorithms described in the paper in order to work for my project. That would be problematic as my understanding of abstract algebraic group theory can be described as limited at the least.
-
-# Real Project Layout
-
-Complete step 1, go to step 2 and realize parsing millions of words on a laptop is slow and takes for ever. After wasting a long time on step 2, just kind of skip extracting verbs, nouns, ect and just use raw text data as strings. Which gives pretty poor results.
 
 # Project Layout
 
