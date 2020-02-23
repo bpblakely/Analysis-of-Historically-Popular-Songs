@@ -9,6 +9,10 @@ In more detail, the goal will be to analyze and compare the most popular songs o
 
 I will be referencing 2 main papers for this project and hopefully wont need to redesign their algorithms described in the paper in order to work for my project. That would be problematic as my understanding of abstract algebraic group theory can be described as limited at the least.
 
+# Real Project Layout
+
+Complete step 1, go to step 2 and realize parsing millions of words on a laptop is slow and takes for ever. After wasting a long time on step 2, just kind of skip extracting verbs, nouns, ect and just use raw text data as strings. Which gives pretty poor results.
+
 # Project Layout
 
 This project will be devised into multiple parts:
