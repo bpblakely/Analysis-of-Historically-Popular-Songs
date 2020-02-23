@@ -9,7 +9,7 @@ In more detail, the goal will be to analyze and compare the most popular songs o
 **Hackathon Results**
 
 
-This project won the award for best design at the 2020 BGSU Hackathon. I will upload our presentation and freeze this respitory. I'd like to thank my teammates, David Ash and Jackson Conrad, for their contributions to this project. Since this project had an unsuccessful application of topological data analysis in this project, I will clone this respiratory and continue working on it as my schedule allows it. If I get good results I will write a paper for publication, as this field still needs some development. 
+This project won the award for best design at the 2020 BGSU Hackathon. I will upload our presentation (named Hackathon Presentation) and freeze this respitory. I'd like to thank my teammates, David Ash and Jackson Conrad, for their contributions to this project. Since this project had an unsuccessful application of topological data analysis in this project, I will clone this respiratory and continue working on it as my schedule allows it. If I get good results I will write a paper for publication, as this field still needs some development. 
 
 # References
 
