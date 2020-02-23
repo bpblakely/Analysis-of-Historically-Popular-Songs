@@ -3,15 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
-from sklearn.pipeline import make_pipeline
 from sklearn.decomposition import PCA
-from sklearn.cluster import KMeans, MiniBatchKMeans
-from sklearn.manifold import TSNE
-from sklearn.decomposition import TruncatedSVD 
-from sklearn.preprocessing import normalize 
 from matplotlib import markers,colors
-from mpl_toolkits.mplot3d import Axes3D
 from wordcloud import WordCloud
+
+# PS this code is kinda all over the place. Different parts were ran and commeneted out after generating plots
 
 def top_tfidf_feats(row, features, top_n=20):
     topn_ids = np.argsort(row)[::-1][:top_n]
@@ -40,7 +36,7 @@ def plotWithWords(x,y):
          imClu = plt.scatter(
                 x[i], y[i],
                 marker=markerList[i % len(markerList)],
-                norm=normClu, label=y[i])
+                norm=normClu, label=x[i])
     plt.colorbar(imClu)
     plt.legend().set_draggable(True)
     plt.xlabel('Word')
@@ -99,7 +95,7 @@ def plot_tfidf_classfeats_h(dfs):
         ax.set_ylim([-1, x[-1]+1])
         yticks = ax.set_yticklabels(df.features)
         plt.subplots_adjust(bottom=0.09, right=0.97, left=0.15, top=0.95, wspace=0.52)
-    plt.show()
+        plt.show()
 #%%
 songs = pd.read_csv('all_songs_data.csv',index_col=0)
 songs = songs.dropna(subset=['Lyrics'])
@@ -138,21 +134,64 @@ for d in decades:
     topFeatures=top_feats_in_doc(X, features, 1, 50)
     wordsMean.append(topMeanFeat)
     wordsTop.append(topFeatures)
-    wordcloud(str(topFeatures),max_words=30)
+    #wordcloud(str(topFeatures),max_words=30)
 
-
-
+X = vect.fit_transform(songs[4500:]['Lyrics'])
+features = vect.get_feature_names()
+X_dense = X.todense()
+topFeatures= top_feats_in_doc(X, features, 1, 50)
+#wordcloud(str(topFeatures),max_words=30)
 tFeat=np.array(topFeatures)
-
-topFeatures.drop()
 tMeanFeat=np.array(topMeanFeat)
 tFeat=np.array(topFeatures)
+a=np.flip(tFeat)
 
+plotWithWords(a[:,1],a[:,0])
 
-n_clusters = 4
+n_clusters =4 
 clf = KMeans(n_clusters=n_clusters, max_iter=100, init='k-means++', n_init=1)
 labels = clf.fit_predict(X)
 
-
 plot_tfidf_classfeats_h(top_feats_per_cluster(X,labels,features))
+#%%
+from sklearn.cluster import SpectralClustering as sc
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+ 
+cv=CountVectorizer()
+word_count_vector=cv.fit_transform(recent['Lyrics'])
 
+tfidf_transformer=TfidfTransformer(smooth_idf=True,use_idf=True)
+tfidf_transformer.fit(word_count_vector)
+df_idf = pd.DataFrame(tfidf_transformer.idf_, index=cv.get_feature_names(),columns=["idf_weights"])
+
+df_idf.sort_values(by=['idf_weights'])
+count_vector=cv.transform(recent['Lyrics'])
+tf_idf_vector=tfidf_transformer.transform(count_vector)
+
+feature_names = cv.get_feature_names()
+# (feature_names,tf_idf_vector.data)
+#get tfidf vector for first document
+first_document_vector=tf_idf_vector[0]
+ 
+#print the scores
+df = pd.DataFrame(first_document_vector.T.todense(), index=feature_names, columns=["tfidf"])
+z=df.sort_values(by=["tfidf"],ascending=False) 
+
+
+recent = songs[5870:]
+recent.reset_index(inplace=True, drop=True) 
+
+vect = TfidfVectorizer(analyzer='word', stop_words=stopwords, max_df=0.2, min_df=2)
+X = vect.fit_transform(recent['Lyrics'])
+features = vect.get_feature_names()
+X_dense = X.todense()
+idk=sc(n_clusters=5,random_state=1,affinity='rbf',n_init=50,gamma=1)
+labels = idk.fit_predict(X)
+plot_tfidf_classfeats_h(top_feats_per_cluster(X,labels,features))
+#top_feats_in_doc(X,features,1,50)
+
+from sklearn.cluster import AgglomerativeClustering as ac
+agg= ac(n_clusters=)
+labels = agg.fit_predict(X.toarray())
+plot_tfidf_classfeats_h(top_feats_per_cluster(X,labels,features))
