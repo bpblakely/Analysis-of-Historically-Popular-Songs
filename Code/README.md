@@ -5,7 +5,7 @@
  
  ![](https://i.imgur.com/mDZkDUI.png)
 
-**Notgarbage.py **
+**NotGarbage.py**
 
 
 This is our main program. Note that this was named after we finally got some sort of tangable results. However, despite the name the code is in fact garbage. It's cluttered and was mainly used to generate graphs and had variables changed to generate new ones, which were used for our presentation. 
