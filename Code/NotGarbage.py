@@ -11,6 +11,7 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.preprocessing import normalize 
 from matplotlib import markers,colors
 from mpl_toolkits.mplot3d import Axes3D
+from wordcloud import WordCloud
 
 def top_tfidf_feats(row, features, top_n=20):
     topn_ids = np.argsort(row)[::-1][:top_n]
@@ -44,6 +45,61 @@ def plotWithWords(x,y):
     plt.legend().set_draggable(True)
     plt.xlabel('Word')
     plt.ylabel('Frequency')
+    
+def wordcloud(text, max_words):
+    '''
+    Wrapper around Wordcloud that increases quality, picks a specific font,
+    and puts it on a white background
+    '''
+    
+    wordcloud = WordCloud(font_path='C:\WINDOWS\FONTS\PERTILI.TTF',
+                          width = 4000,
+                          height = 3000,
+                          background_color="white",
+                          max_words = max_words                          
+                         ).generate(text)
+    plt.figure(figsize=(40,25))
+    plt.imshow(wordcloud)
+    plt.axis("off")
+    plt.tight_layout(pad=0)
+    plt.show()
+    return
+#give the songs of a decade, returns avg word count per song
+def avgWord(songs):
+    avg=0
+    for lyr in songs['Lyrics']:
+        avg += len(lyr)
+    avg /= len(songs['Lyrics'])
+    return avg
+def top_feats_per_cluster(X, y, features, min_tfidf=0.1, top_n=25):
+    dfs = []
+    labels = np.unique(y)
+    for label in labels:
+        ids = np.where(y==label) 
+        feats_df = top_mean_feats(X, features, ids,    min_tfidf=min_tfidf, top_n=top_n)
+        feats_df.label = label
+        dfs.append(feats_df)
+    return dfs
+
+def plot_tfidf_classfeats_h(dfs):
+    fig = plt.figure(figsize=(12, 9), facecolor="w")
+    x = np.arange(len(dfs[0]))
+    for i, df in enumerate(dfs):
+        ax = fig.add_subplot(1, len(dfs), i+1)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.set_frame_on(False)
+        ax.get_xaxis().tick_bottom()
+        ax.get_yaxis().tick_left()
+        ax.set_xlabel("Tf-Idf Score", labelpad=16, fontsize=14)
+        ax.set_title("cluster = " + str(df.label), fontsize=16)
+        ax.ticklabel_format(axis='x', style='sci', scilimits=(-2,2))
+        ax.barh(x, df.score, align='center', color='#7530FF')
+        ax.set_yticks(x)
+        ax.set_ylim([-1, x[-1]+1])
+        yticks = ax.set_yticklabels(df.features)
+        plt.subplots_adjust(bottom=0.09, right=0.97, left=0.15, top=0.95, wspace=0.52)
+    plt.show()
 #%%
 songs = pd.read_csv('all_songs_data.csv',index_col=0)
 songs = songs.dropna(subset=['Lyrics'])
@@ -54,30 +110,49 @@ indexNames = songs[ songs['Lyrics'].map(len) > 9000 ].index
 songs.drop(indexNames , inplace=True)
 songs.reset_index(inplace=True, drop=True) 
 
-d1=songs[0:1000]
-d2=songs[1000:2000]
-d3=songs[2000:3000]
-d4=songs[3000:4000]
-d5=songs[4000:5000]
-d6=songs[5000:5913]
+d1=songs[0:1048]
+d2=songs[1048:2011]
+d3=songs[2011:2995]
+d4=songs[2995:3960]
+d5=songs[3960:4932]
+d6=songs[4932:5913]
 #decades starting with 1960, ending at 2010
 decades= [d1,d2,d3,d4,d5,d6]
 recent = songs[4500:]
 recent.reset_index(inplace=True, drop=True) 
+
 X = vect.fit_transform(recent['Lyrics'])
 features = vect.get_feature_names()
 X_dense = X.todense()
+
+top_feats_in_doc(X,features,1,50)
 coords = PCA(n_components=2).fit_transform(X_dense)
 
+wordsMean=[]
+wordsTop=[]
+for d in decades:
+    X = vect.fit_transform(d['Lyrics'])
+    features = vect.get_feature_names()
+    X_dense = X.todense()
+    topMeanFeat=top_mean_feats(X, features, top_n=50)
+    topFeatures=top_feats_in_doc(X, features, 1, 50)
+    wordsMean.append(topMeanFeat)
+    wordsTop.append(topFeatures)
+    wordcloud(str(topFeatures),max_words=30)
 
-topMeanFeat=top_mean_feats(X, features, top_n=20)
-topFeatures=top_feats_in_doc(X, features, 1, 20)
+
+
+tFeat=np.array(topFeatures)
+
+topFeatures.drop()
 tMeanFeat=np.array(topMeanFeat)
 tFeat=np.array(topFeatures)
 
-tFeat[1,1]
 
-plotWithWords(tFeat[:,1],tFeat[:,0])
-tFeat[:,0]
-plt.scatter(topFeatures, topMeanFeat, c='m')
-plt.show()
+n_clusters = 4
+clf = KMeans(n_clusters=n_clusters, max_iter=100, init='k-means++', n_init=1)
+labels = clf.fit_predict(X)
+
+
+plot_tfidf_classfeats_h(top_feats_per_cluster(X,labels,features))
+
