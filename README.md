@@ -1,10 +1,10 @@
 # Analysis-of-Historically-Popular-Songs
 The goal of this project is to analyze a couple of the most popular songs of each year for the last 60 years using topological data analysis (TDA) and a natural language processer (NLP). Depending on time restraints, more analysis might be done using ML or analysis of word frequencies in the lyrics.
 
-**This project is for the BGSU Hackathon**
-
 
 In more detail, the goal will be to analyze and compare the most popular songs of the past 60 years against each other. Using the the top 100 most popular songs of a year to be the sample for the respective year. Hopefully this project will show some interesting trends in the progression of music.
+
+**This project is for the BGSU Hackathon**
 
 **Hackathon Results**
 
