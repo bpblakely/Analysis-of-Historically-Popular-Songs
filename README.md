@@ -4,7 +4,7 @@ The goal of this project is to analyze a couple of the most popular songs of eac
 **This project is for the BGSU Hackathon**
 
 
-In more detail, the goal will be to analyze and compare the most popular songs of the past 60 years against each other. Using the the top 5 (subject to change) most popular songs of a year to be the sample for the respective year. Hopefully this project will show some interesting trends in the progression of music.
+In more detail, the goal will be to analyze and compare the most popular songs of the past 60 years against each other. Using the the top 100 most popular songs of a year to be the sample for the respective year. Hopefully this project will show some interesting trends in the progression of music.
 
 **Hackathon Results**
 
