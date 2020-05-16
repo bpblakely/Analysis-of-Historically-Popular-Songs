@@ -13,7 +13,7 @@ This project won the award for best design at the 2020 BGSU Hackathon. I will up
 
 # References
 
-I will be referencing 2 main papers for this project and hopefully wont need to redesign their algorithms described in the paper in order to work for my project. That would be problematic as my understanding of abstract algebraic group theory can be described as limited at the least.
+I will be referencing 2 main papers for this project and hopefully wont need to redesign their described algorithms in order for it to work in my project. That would be problematic as my understanding of abstract algebraic group theory can be described as limited at the least.
 
 # Project Layout
 
